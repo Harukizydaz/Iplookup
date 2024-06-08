@@ -18,7 +18,7 @@ body {
 }
 
 .logo {
-    width: 100px;
+    width: 150px;
 }
 
 h1 {
@@ -42,6 +42,23 @@ h1 {
     margin: 20px 0;
 }
 
+.announcement .animated-text {
+    animation: fadeIn 3s infinite;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.images-section {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 .images-section img {
     width: 100px;
     margin: 10px;
@@ -49,6 +66,10 @@ h1 {
 
 .footer {
     margin-top: 20px;
+}
+
+.footer img {
+    width: 150px;
 }
 
 .social {
