@@ -1,22 +1,11 @@
-
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-    
-<meta charset="UTF-8">
-
-    
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    
-<title>
-IP LOOKUP TOOL FOR FREE
-</title>
-
-    
-<style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP LOOKUP TOOL FOR FREE</title>
+    <style>
         body {
             font-family: 'Roboto', Arial, sans-serif;
             background: url('https://i.ibb.co/nBqnVbL/A-close-up-photo-of-the-bright-center-of-a-star-cluster.jpg') no-repeat center center/cover;
@@ -28,6 +17,7 @@ IP LOOKUP TOOL FOR FREE
             padding: 20px;
             color: #ffffff;
         }
+
         .container {
             background: rgba(0, 0, 0, 0.5);
             border-radius: 15px;
@@ -35,7 +25,7 @@ IP LOOKUP TOOL FOR FREE
             padding: 40px;
             text-align: center;
             max-width: 450px;
-            width: 100%
+            width: 100%;
             animation: fadeIn 0.5s ease-in-out;
             border: 1px solid rgba(255, 255, 255, 0.18);
             position: relative;
@@ -47,7 +37,7 @@ IP LOOKUP TOOL FOR FREE
         }
 
         .logo-image {
-            max-width: 40%
+            max-width: 40%;
             height: auto;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -63,6 +53,7 @@ IP LOOKUP TOOL FOR FREE
         .input-container {
             margin-bottom: 25px;
         }
+
         input[type="text"] {
             width: calc(100% - 24px);
             padding: 14px;
@@ -77,9 +68,11 @@ IP LOOKUP TOOL FOR FREE
             outline: none;
             transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
         }
+
         input[type="text"]::placeholder {
             color: #cccccc;
         }
+
         button {
             background-color: rgba(255, 255, 255, 0.1);
             border: none;
@@ -89,130 +82,94 @@ IP LOOKUP TOOL FOR FREE
             cursor: pointer;
             border-radius: 8px;
             transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            width: 100%
+            width: 100%;
             margin-top: 15px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             outline: none;
         }
+
         button:hover {
             background-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
+
         button:focus {
             background-color: rgba(255, 255, 255, 0.2);
         }
+
         button:active {
             background-color: rgba(255, 255, 255, 0.3);
             transform: scale(0.95);
         }
+
         .spinner-container {
             position: absolute;
-            top: 50%
-            left: 50%
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             display: none;
         }
+
         .spinner {
             border: 5px solid rgba(255, 255, 255, 0.1);
             border-top: 5px solid #ffffff;
-            border-radius: 50%
+            border-radius: 50%;
             width: 50px;
             height: 50px;
             animation: spin 1s linear infinite;
         }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
+
         .error-message {
             color: #ff6f61;
             margin-top: 15px;
         }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-    
-</style>
-
-
+    </style>
 </head>
 
-
 <body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://i.ibb.co/HD6Dp8H/lamilami.png" alt="Logo Image" class="logo-image">
+            <div class="logo-text">IP LOOKUP TOOL</div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="ipInput" placeholder="ENTER IP ADDRESS">
+        </div>
+        <button onclick="lookupIP()">SEARCH</button>
+        <div class="spinner-container" id="loading">
+            <div class="spinner"></div>
+        </div>
+        <div class="summary" id="summary"></div>
+        <div class="error-message" id="errorMessage"></div>
+        <button onclick="downloadResult()" id="downloadBtn" style="display: none; margin-top: 15px;">DOWNLOAD THE FULL INFO</button>
+    </div>
 
-    
-<div class="container">
-
-        
-<div class="logo">
-
-            
-<img src="https://i.ibb.co/HD6Dp8H/lamilami.png" alt="Logo Image" class="logo-image">
-
-            
-<div class="logo-text">
-IP LOOKUP TOOL
-</div>
-
-        
-</div>
-
-        
-<div class="input-container">
-
-            
-<input type="text" id="ipInput" placeholder="ENTER IP ADDRESS">
-
-        
-</div>
-
-        
-<button onclick="lookupIP()">
-SEARCH
-</button>
-
-        
-<div class="spinner-container" id="loading">
-
-            
-<div class="spinner">
-
-</div>
-
-        
-</div>
-
-        
-<div class="summary" id="summary">
-
-</div>
-
-        
-<div class="error-message" id="errorMessage">
-
-</div>
-
-        
-<button onclick="downloadResult()" id="downloadBtn" style="display: none; margin-top: 15px;">
-DOWNLOAD THE FULL INFO
-</button>
-
-    
-</div>
-
-    
-<script>
-
+    <script>
         function isValidIP(ip) {
             const regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
             return regex.test(ip);
@@ -231,7 +188,7 @@ DOWNLOAD THE FULL INFO
 
             if (!isValidIP(ip)) {
                 errorMessage.textContent = 'Invalid IP address';
-                loadingIndicator.style.display = 'none'; 
+                loadingIndicator.style.display = 'none';
                 return;
             }
 
@@ -253,30 +210,14 @@ DOWNLOAD THE FULL INFO
         function displayResults(data) {
             const summaryContainer = document.getElementById('summary');
             const countryFlag = data.country_flag ? `
-<img src="${data.country_flag}" alt="Country Flag" style="max-width: 100px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
-` : '';
+                <img src="${data.country_flag}" alt="Country Flag" style="max-width: 100px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+            ` : '';
 
             const summaryInfo = `
-                
-<p>
-IP: ${data.ip}
-</p>
-
-                
-<p>
-Continent: ${data.continent_name} (${data.continent_code})
-</p>
-
-                
-<p>
-Country: ${data.country_name} (${data.country_code2}, ${data.country_code3})
-</p>
-
-                
-<p>
-Official Name: ${data.country_name_official}
-</p>
-
+                <p>IP: ${data.ip}</p>
+                <p>Continent: ${data.continent_name} (${data.continent_code})</p>
+                <p>Country: ${data.country_name} (${data.country_code2}, ${data.country_code3})</p>
+                <p>Official Name: ${data.country_name_official}</p>
                 ${countryFlag}
             `;
             summaryContainer.innerHTML = summaryInfo;
@@ -291,15 +232,13 @@ Official Name: ${data.country_name_official}
             }
 
             fetch(`/api/iplookup/${ip}`)
-                .then(response =>
- {
+                .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
                     return response.json();
                 })
-                .then(data =>
- {
+                .then(data => {
                     const detailedInfo = JSON.stringify(data, null, 2);
                     const blob = new Blob([detailedInfo], { type: 'text/plain' });
                     const fileName = `ip_lookup_details_${generateRandomString()}.txt`;
@@ -312,21 +251,15 @@ Official Name: ${data.country_name_official}
                     a.click();
                     window.URL.revokeObjectURL(url);
                 })
-                .catch(error =>
- {
+                .catch(error => {
                     console.error('Error downloading IP details:', error);
                 });
         }
 
         function generateRandomString() {
-            return Math.random().toString(36).substring(2, 15)   Math.random().toString(36).substring(2, 15);
+            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         }
-    
-</script>
-
-
-
-
+    </script>
 </body>
 
 </html>
